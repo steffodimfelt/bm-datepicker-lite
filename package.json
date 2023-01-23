@@ -1,0 +1,23 @@
+{
+  "name": "bm-datepicker-lite",
+  "version": "1.0.4",
+  "author": {
+  "name": "Steffo Dimfelt",
+  "email": "steffo.dimfelt@gmail.com"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "keywords": [
+    "angular",
+    "datepicker",
+    "picker",
+    "calendar",
+    "dates"
+  ]
+}
