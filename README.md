@@ -253,6 +253,7 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
+- 1.0.4: Fix year format bug. Adjust text to Readme
 - 1.0.3: Adjust text to Readme
 - 1.0.2: Adjust text to Readme
 - 1.0.1: Adjust text to Readme
