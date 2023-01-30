@@ -32,16 +32,16 @@ label{
     display:flex;
     align-items:center; 
     justify-content:center; 
-    background-color:rgb(0, 131, 202);
-    border: 1px solid rgb(0, 131, 202);
+    background-color:rgb(0, 153, 235);
+    border: 1px solid rgb(0, 153, 235);
     border-radius: 9999px;
     transition:.5s
 }
 .bm-toggle-button:hover{
-    background-color: rgb(0, 153, 235);
+    background-color: rgb(0, 131, 202);
     cursor:pointer;
     color:fff;
-    border: 1px solid rgb(0, 153, 235)
+    border: 1px solid rgb(0, 131, 202)
 }
 .bm-table{
     width:100%; 
@@ -88,10 +88,15 @@ label{
     transition: .4s;
     border: 1px solid #f5f5f5;
 }
-.bm-td-inner:hover, .bm-td-selected-day{
+.bm-td-inner:hover{
     background-color: rgb(0, 131, 202);
     cursor:pointer;
     border: 1px solid rgb(0, 131, 202)
+}
+.bm-td-selected-day{
+    background-color: rgb(0, 153, 235);
+    cursor:pointer;
+    border: 1px solid rgb(0, 153, 235)
 }
 .bm-td-inner:hover p, .bm-td-selected-day p{color:#fff}
 .bm-th p{
@@ -134,6 +139,4 @@ label{
 .bm-arrow-right {transform: rotate(-45deg);}
 .bm-arrow-left {transform: rotate(135deg);}
 .bm-weekend {color: #ff0000}
-
-
 `;

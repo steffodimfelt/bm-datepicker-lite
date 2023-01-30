@@ -3,8 +3,9 @@
   <div *ngIf="!formGroupInput" class="bm-date-input-wrapper">
     <input
       #bmDatePicker
-      class="bm-date-input"
-      placeholder="{{ placeholder }}" />
+      [pattern]="pattern"
+      placeholder="{{ placeholder }}"
+      class="bm-date-input" />
   </div>
   <div
     *ngIf="formGroupInput"
@@ -12,9 +13,9 @@
     class="bm-date-input-wrapper">
     <input
       #bmDatePicker
-      class="bm-date-input"
       formControlName="{{ formControlNameInput }}"
-      placeholder="{{ placeholder }}" />
+      placeholder="{{ placeholder }}"
+      class="bm-date-input bm-date-input-pointer" />
   </div>
   <div class="bm-toggle-button" (click)="showDatePicker = !showDatePicker">
     <ng-content></ng-content>
@@ -97,12 +98,7 @@
             dayDate &&
             calendarDaysService.returnWeekdayDate(dayDate) <
               calendarDaysService.currentDay,
-          'bm-td-selected-day':
-            dayDate &&
-            inputData.year === calendarYearsService.returnYearDate(dayDate) &&
-            inputData.month ===
-              calendarMonthsService.returnMonthDate(dayDate) &&
-            inputData.day === calendarDaysService.returnWeekdayDate(dayDate)
+          'bm-td-selected-day': dayDate && selectedDayDate(dayDate)
         }">
         <p [class.bm-weekend]="dayDate && (dayIndex === 5 || dayIndex === 6)">
           {{ dayDate && calendarDaysService.returnWeekdayDate(dayDate) }}

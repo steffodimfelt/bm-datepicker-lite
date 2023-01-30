@@ -14,7 +14,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 
 import { CalendarDaysService } from './services/calendar-days.service';
 import { CalendarMonthsService } from './services/calendar-months.service';
@@ -56,10 +56,11 @@ export class BmDatepickerLiteComponent implements OnInit {
   @Input() formGroupInput?: FormGroup | any;
   @Input() formControlNameInput?: any;
   @Input() placeholder: string = 'Pick a date';
+  @Input() pattern: string = 'YYYY-MM-DD';
   @Output() calendarOutput: EventEmitter<any> = new EventEmitter();
 
   date = new Date();
-  inputData = { year: 0, month: 0, day: 0 };
+  inputData = { year: '0', month: '0', day: '0' };
   showDatePicker = false;
   styleElement: any = null;
 
@@ -80,6 +81,57 @@ export class BmDatepickerLiteComponent implements OnInit {
     this.createStyle(
       this.styleSheet ? stylesDefault + this.styleSheet : stylesDefault
     );
+
+    this.formGroupInput.get(this.formControlNameInput)?.disable();
+
+    switch (this.pattern) {
+      case 'YYYY/MM/DD':
+        this.formGroupInput
+          .get(this.formControlNameInput)
+          .addValidators(Validators.pattern('^[0-9]{4}/[0-9]{2}/[0-9]{2}$'));
+        break;
+      case 'YY/MM/DD':
+      case 'MM/DD/YY':
+      case 'DD/MM/YY':
+        this.formGroupInput
+          .get(this.formControlNameInput)
+          .addValidators(Validators.pattern('^[0-9]{2}/[0-9]{2}/[0-9]{2}$'));
+        break;
+      case 'YY-MM-DD':
+      case 'MM-DD-YY':
+      case 'DD-MM-YY':
+        this.formGroupInput
+          .get(this.formControlNameInput)
+          .addValidators(Validators.pattern('^[0-9]{2}-[0-9]{2}-[0-9]{2}$'));
+        break;
+      case 'DD.MM.YY':
+        this.formGroupInput
+          .get(this.formControlNameInput)
+          .addValidators(Validators.pattern('^[0-9]{2}.[0-9]{2}.[0-9]{2}$'));
+        break;
+      case 'YYYY/MM/DD':
+        this.formGroupInput
+          .get(this.formControlNameInput)
+          .addValidators(Validators.pattern('^[0-9]{4}/[0-9]{2}/[0-9]{2}$'));
+        break;
+      case 'MM/DD/YYYY':
+      case 'DD/MM/YYYY':
+        this.formGroupInput
+          .get(this.formControlNameInput)
+          .addValidators(Validators.pattern('^[0-9]{2}/[0-9]{2}/[0-9]{4}$'));
+        break;
+      case 'MM-DD-YYYY':
+      case 'DD-MM-YYYY':
+        this.formGroupInput
+          .get(this.formControlNameInput)
+          .addValidators(Validators.pattern('^[0-9]{2}-[0-9]{2}-[0-9]{4}$'));
+        break;
+      default:
+        this.formGroupInput
+          .get(this.formControlNameInput)
+          .addValidators(Validators.pattern('^[0-9]{4}-[0-9]{2}-[0-9]{2}$'));
+        break;
+    }
   }
 
   createStyle(style: string): void {
@@ -125,20 +177,98 @@ export class BmDatepickerLiteComponent implements OnInit {
     );
   };
   selectDay = (dayValue: any) => {
-    const formatDay = this.calendarDaysService.returnWeekdayDate(dayValue);
-    this.calendarDaysService.selectedDay = formatDay;
     this.inputData = {
-      year: this.calendarYearsService.selectedYear,
-      month: this.calendarMonthsService.selectedMonth,
-      day: formatDay
+      year: this.calendarYearsService.returnYearDate(dayValue).toString(),
+      month: this.calendarMonthsService.returnMonthDate(dayValue).toString(),
+      day: this.calendarDaysService.returnWeekdayDate(dayValue).toString()
     };
-    const parsedMonth = this.calendarMonthsService.selectedMonth + 1;
-    this.bmDatePicker.nativeElement.value = `${this.inputData.year}-${
-      this.inputData.month < 10 ? `0${parsedMonth.toString()}` : parsedMonth
-    }-${
-      this.inputData.day < 10 ? '0' + this.inputData.day : this.inputData.day
-    }`;
-    this.calendarOutput.emit(dayValue);
+    this.selectedDayDate(dayValue);
+    const formatDate = this.formatedDate();
+    this.calendarOutput.emit(formatDate);
+    this.bmDatePicker.nativeElement.value = formatDate;
     this.showDatePicker = false;
+  };
+
+  selectedDayDate = (dayDate: any) => {
+    let parsedDay = this.calendarDaysService
+      .returnWeekdayDate(dayDate)
+      .toString();
+    let selectParsedMonth =
+      this.calendarMonthsService.returnMonthDate(dayDate) + 1;
+    selectParsedMonth = selectParsedMonth.toString();
+    selectParsedMonth.length < 2 &&
+      (selectParsedMonth = `0${selectParsedMonth}`);
+    let parsedYear = this.calendarYearsService
+      .returnYearDate(dayDate)
+      .toString();
+    if (parsedDay.length < 2) parsedDay = `0${parsedDay}`;
+    if (
+      parsedYear === this.inputData.year &&
+      selectParsedMonth === this.inputData.month &&
+      parsedDay === this.inputData.day
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  formatedDate = () => {
+    const parsedMonth = parseInt(this.inputData.month) + 1;
+    parsedMonth.toString().length < 2
+      ? (this.inputData.month = `0${parsedMonth.toString()}`)
+      : (this.inputData.month = `${parsedMonth.toString()}`);
+    if (this.inputData.day.length < 2)
+      this.inputData.day = `0${this.inputData.day}`;
+    let formatedYear = this.inputData.year.toString();
+
+    if (
+      this.pattern === 'YY/MM/DD' ||
+      this.pattern === 'MM/DD/YY' ||
+      this.pattern === 'DD/MM/YY' ||
+      this.pattern === 'DD.MM.YY' ||
+      this.pattern === 'MM-DD-YY' ||
+      this.pattern === 'DD-MM-YY' ||
+      this.pattern === 'YY-MM-DD'
+    ) {
+      formatedYear =
+        formatedYear.slice(-1, 1) + formatedYear.slice(2, formatedYear.length);
+    }
+
+    switch (this.pattern) {
+      case 'YYYY/MM/DD':
+      case 'YY/MM/DD':
+        return [formatedYear, this.inputData.month, this.inputData.day].join(
+          '/'
+        );
+      case 'MM/DD/YY':
+      case 'MM/DD/YYYY':
+        return [this.inputData.month, this.inputData.day, formatedYear].join(
+          '/'
+        );
+      case 'DD/MM/YY':
+      case 'DD/MM/YYYY':
+        return [this.inputData.day, this.inputData.month, formatedYear].join(
+          '/'
+        );
+      case 'DD.MM.YYYY':
+      case 'DD.MM.YY':
+        return [this.inputData.day, this.inputData.month, formatedYear].join(
+          '.'
+        );
+      case 'MM-DD-YY':
+      case 'MM-DD-YYYY':
+        return [this.inputData.month, this.inputData.day, formatedYear].join(
+          '-'
+        );
+      case 'DD-MM-YY':
+      case 'DD-MM-YYYY':
+        return [this.inputData.day, this.inputData.month, formatedYear].join(
+          '-'
+        );
+      default:
+        return [formatedYear, this.inputData.month, this.inputData.day].join(
+          '-'
+        );
+    }
   };
 }

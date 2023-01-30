@@ -23,12 +23,35 @@ You can add the error messages below the Bookmaker and reference to the input fi
   <p *ngIf="generatedFormGroup.get('password')?.errors?.['required']"> This field is required</p>
 ```
 
-## What if I want a different format of the input field?
-Well, no, and yes. Right now the format is YYYY-MM-DD. 
-BUT ONLY in the GUI. The response back to the Formgroup is in raw format:
-```javscript
-Sat Nov 26 2022 00:00:00 GMT+0100 
+## What if I want a different format of the input field, can I change it?
+Yes, you can, since version 1.1.0. use the parameter `pattern` to change format. 
+```html
+<bm-datepicker-lite pattern="MM/DD/YY"></bm-datepicker-lite>
 ```
+The default format is `YYYY-MM-DD` and do not need the pattern to be written out.
+The available patterns are:
+| YYYY-MM-DD |
+| YY-MM-DD   | 
+| MM-DD-YYYY |
+| MM-DD-YY   | 
+| DD-MM-YYYY |
+| DD-MM-YY   | 
+| YYYY/MM/DD |
+| YY/MM/DD   | 
+| MM/DD/YYYY |
+| MM/DD/YY   | 
+| DD/MM/YYYY |
+| DD/MM/YY   | 
+| DD.MM.YYYY |
+| DD.MM.YY   | 
+
+
+## Why can't I manually change the date in the input field?
+This is a lite-version and is intend to be easy to use and therefore the ability to do changes in input field is disabled. 
+Since version 1.1.0, the way to use Bookmaker Lite is:
+1. Select a date in the calendar. 
+2. The selected date will be formatted according to a pattern of choice. 
+3. The formated date will be presented in the input field and used via selected `formControlNameInput`.
 
 ## How do I get back the response from Bookmaker?
 You can use `calendarOutput` to hook up to a response function. The response value is a raw formated date. 
@@ -97,141 +120,145 @@ In the component:
 ```javascript
  styles = `
 p, input, label{
-  font-family:"Poppins", Verdana, sans-serif;
-  color: #000;
-  margin:0;
-  padding:0;
+    font-family:"Poppins", Verdana, sans-serif;
+    color: #000;
+    margin:0;
+    padding:0
 }
 label{
-  font-size: .9rem;
-  font-weight: 500;
-  margin-left:15px
+    font-size: .9rem;
+    font-weight: 500;
+    margin-left:15px
 }
 .bm-date-input{
-  display:flex;
-  flex:1;
-  height:40px;
-  border-radius: 9999px;
-  padding: 3px 0 3px 20px; 
-  border: 1px solid rgb(195, 195, 195)
+    display:flex;
+    flex:1;height:40px;
+    border-radius: 9999px;
+    padding: 3px 0 3px 20px; 
+    border: 1px solid rgb(195, 195, 195)
 }
 .bm-date-input-wrapper{
-  position:relative; 
-  width: 100%; 
-  display:flex;
-  flex-direction:row; 
-  align-items: center;
+    position:relative; 
+    width: 100%; 
+    display:flex;
+    flex-direction:row; 
+    align-items: center;
 }
 .bm-toggle-button{
-  position:absolute; 
-  right:5px; 
-  width:30px; 
-  height:30px;
-  display:flex;
-  align-items:center; 
-  justify-content:center; 
-  background-color:rgb(0, 131, 202);
-  border: 1px solid rgb(0, 131, 202);
-  border-radius: 9999px;
-  transition:.5s
+    position:absolute; 
+    right:5px; 
+    width:30px; 
+    height:30px;
+    display:flex;
+    align-items:center; 
+    justify-content:center; 
+    background-color:rgb(0, 153, 235);
+    border: 1px solid rgb(0, 153, 235);
+    border-radius: 9999px;
+    transition:.5s
 }
 .bm-toggle-button:hover{
-  background-color: rgb(0, 153, 235);
-  cursor:pointer;
-  color:fff;
-  border: 1px solid rgb(0, 153, 235)
+    background-color: rgb(0, 131, 202);
+    cursor:pointer;
+    color:fff;
+    border: 1px solid rgb(0, 131, 202)
 }
 .bm-table{
-  width:100%; 
-  background-color:#f5f5f5;
-  overflow: hidden;
-  padding:16px; 
-  display:flex;
-  flex-direction: column; 
-  border-radius: 8px; 
-  box-shadow: 0 0 0.125rem 0 rgba(0,0,0,0.08), 0 0.125rem 0.75rem 0 rgba(0,0,0,0.24);
-  box-sizing:border-box;
+    width:100%; 
+    background-color:#f5f5f5;
+    overflow: hidden;
+    padding:16px; 
+    display:flex;
+    flex-direction: column; 
+    border-radius: 8px; 
+    box-shadow: 0 0 0.125rem 0 rgba(0,0,0,0.08), 0 0.125rem 0.75rem 0 rgba(0,0,0,0.24);
+    box-sizing:border-box;
 }
 .bm-tr{
-  display:flex;
-  flex:1; 
-  justify-content:space-between; 
-  align-items:center;
-  flex-direction: row;
+    display:flex;
+    flex:1; 
+    justify-content:space-between; 
+    align-items:center;
+    flex-direction: row;
 }
 .bm-th{
-  display:flex; 
-  flex:1; 
-  justify-content:center; 
-  align-items:center;
-  flex-direction:row;
+    display:flex; 
+    flex:1; 
+    justify-content:center; 
+    align-items:center;
+    flex-direction:row;
 }
 .bm-td, .bm-td-empty, .bm-td-empty-month{
-  display:flex; 
-  flex:1;
-  justify-content:center; 
-  align-items: center; 
+    display:flex; 
+    flex:1;
+    justify-content:center; 
+    align-items: center; 
 }
 .bm-td-inner,
 .bm-td-empty .bm-td-inner-empty{
-  height:30px;
-  width:30px;
-  margin:2px;
+    height:30px;
+    width:30px;
+    margin:2px;
 }
 .bm-td-inner{
-  display:flex; 
-  justify-content:center; 
-  align-items: center; 
-  border-radius:9999px;
-  transition: .4s;
-  border: 1px solid #f5f5f5;
+    display:flex; 
+    justify-content:center; 
+    align-items: center; 
+    border-radius:9999px;
+    transition: .4s;
+    border: 1px solid #f5f5f5;
 }
-.bm-td-inner:hover, .bm-td-selected-day{
-  background-color: rgb(0, 131, 202);
-  cursor:pointer;
-  border: 1px solid rgb(0, 131, 202)
+.bm-td-inner:hover{
+    background-color: rgb(0, 131, 202);
+    cursor:pointer;
+    border: 1px solid rgb(0, 131, 202)
+}
+.bm-td-selected-day{
+    background-color: rgb(0, 153, 235);
+    cursor:pointer;
+    border: 1px solid rgb(0, 153, 235)
 }
 .bm-td-inner:hover p, .bm-td-selected-day p{color:#fff}
 .bm-th p{
-  font-size: .9rem;
-  font-weight: 500;
+    font-size: .9rem;
+    font-weight: 500;
 }
 .bm-td-inner p{
-  font-size: .8rem;
-  font-weight: 300;
+    font-size: .8rem;
+    font-weight: 300;
 }
 .bm-daylabels-wrapper{margin-bottom: 20px}
 .bm-year-month-title {
-  display:flex; 
-  flex: 5;
-  justify-content: center; 
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 10px
+    display:flex; 
+    flex: 5;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 10px
 }
 .bm-year-month-title p.bm-month-title{
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-top: -8px
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: -8px
 }
 .bm-td-current-day{border: 1px solid rgb(0, 202, 101)}
 .bm-td-before-day{ 
-  pointer-events:none;
-  background: repeating-linear-gradient(-55deg,rgb(222, 222, 222), rgb(222, 222, 222) 2px,rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px);
-  border: 1px solid rgb(222, 222, 222)}
+    pointer-events:none;
+    background: repeating-linear-gradient(-55deg,rgb(222, 222, 222), rgb(222, 222, 222) 2px,rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px);
+    border: 1px solid rgb(222, 222, 222)}
 .bm-arrow {
-  border: solid #000;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
+    border: solid #000;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
 }
 .bm-td-inner:hover .bm-arrow{
-  border-color:white;
-  border-width: 0 3px 3px 0;
+    border-color:white;
+    border-width: 0 3px 3px 0;
 }
 .bm-arrow-right {transform: rotate(-45deg);}
 .bm-arrow-left {transform: rotate(135deg);}
-.bm-weekend {color: rgb(209, 49, 0)}
+.bm-weekend {color: #ff0000}
   `;
 ```
 
@@ -253,6 +280,7 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
+- 1.1.0: Add date patterns. Lock input field. Adjust CSS. 
 - 1.0.4: Fix year format bug. Adjust text to Readme
 - 1.0.3: Adjust text to Readme
 - 1.0.2: Adjust text to Readme
