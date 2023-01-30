@@ -30,6 +30,8 @@ Yes, you can, since version 1.1.0. use the parameter `pattern` to change format.
 ```
 The default format is `YYYY-MM-DD` and do not need the pattern to be written out.
 The available patterns are:
+|  Pattern   |
+|------------|
 | YYYY-MM-DD |
 | YY-MM-DD   | 
 | MM-DD-YYYY |
@@ -280,6 +282,7 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
+- 1.1.1: Adjust text to Readme 
 - 1.1.0: Add date patterns. Lock input field. Adjust CSS. 
 - 1.0.4: Fix year format bug. Adjust text to Readme
 - 1.0.3: Adjust text to Readme
