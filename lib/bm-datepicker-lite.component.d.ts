@@ -1,0 +1,41 @@
+import { ElementRef, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { CalendarDaysService } from './services/calendar-days.service';
+import { CalendarMonthsService } from './services/calendar-months.service';
+import { CalendarYearsService } from './services/calendar-years.service';
+import * as i0 from "@angular/core";
+export declare class BmDatepickerLiteComponent implements OnInit {
+    private elementRef;
+    calendarYearsService: CalendarYearsService;
+    calendarMonthsService: CalendarMonthsService;
+    calendarDaysService: CalendarDaysService;
+    bmDatePicker: ElementRef;
+    label?: string | null;
+    styleSheet: any;
+    weekdays: any;
+    months: any;
+    formGroupInput?: FormGroup;
+    formControlNameInput: string;
+    placeholder: string;
+    pattern: string;
+    calendarOutput: EventEmitter<any>;
+    date: Date;
+    inputData: {
+        year: string;
+        month: string;
+        day: string;
+    };
+    showDatePicker: boolean;
+    styleElement: any;
+    constructor(elementRef: ElementRef, calendarYearsService: CalendarYearsService, calendarMonthsService: CalendarMonthsService, calendarDaysService: CalendarDaysService);
+    ngOnInit(): void;
+    createStyle(): void;
+    selectNext: () => void;
+    selectPrevious: () => void;
+    selectDay: (dayValue: any) => void;
+    selectedDayDate: (dayDate: any) => boolean;
+    formatedDate: () => string;
+    setFirstAndLastDay(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<BmDatepickerLiteComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<BmDatepickerLiteComponent, "bm-datepicker-lite", never, { "label": "label"; "styleSheet": "styleSheet"; "weekdays": "weekdays"; "months": "months"; "formGroupInput": "formGroupInput"; "formControlNameInput": "formControlNameInput"; "placeholder": "placeholder"; "pattern": "pattern"; }, { "calendarOutput": "calendarOutput"; }, never, ["*"], false, never>;
+}

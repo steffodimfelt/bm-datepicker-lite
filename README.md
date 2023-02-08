@@ -1,7 +1,28 @@
 # Bookmaker Datepicker Lite for Angular 
-A sweet, stylish and fast datepicker for Angular. Developed for developers who want full control over the stylesheet. Can be used within a formgroup or as a standalone input. 
+A sweet, stylish and fast datepicker for Angular. Developed for developers who want full control over the stylesheet and patterns. Can be used within a formgroup or as a standalone input with a standalone callback output. 
 
-![alt text](https://github.com/steffodimfelt/bm-datepicker-lite/blob/main/bookmaker.png?raw=true)
+## Notice
+This application requires Angular version 15.0.0 or newer to work correctly.
+
+<img src="https://github.com/steffodimfelt/bm-datepicker-lite/blob/main/bookmaker.png"  width="350px" alt="Bookmaker Datepicker Lite">
+
+# Installation 
+`npm i bm-datepicker-lite`
+
+Import module in `app.module.ts`:
+```javascript
+import { BmDatepickerLiteModule } from 'bm-datepicker-lite';
+  imports: [
+    BmDatepickerLiteModule,
+    ...
+  ],
+```
+
+Usage:
+```html
+<bm-datepicker-lite></bm-datepicker-lite>
+```
+
 
 # FormBuilder 
 ## Is it possible to connect Bookmaker to my FormBuilder?
@@ -24,39 +45,30 @@ You can add the error messages below the Bookmaker and reference to the input fi
 ```
 
 ## What if I want a different format of the input field, can I change it?
-Yes, you can, since version 1.1.0. use the parameter `pattern` to change format. 
+Yes, you can, since version 1.1.0. use the parameter `pattern` to change format. The pattern is using lowercase letters for year, month and day. 
+
 ```html
-<bm-datepicker-lite pattern="MM/DD/YY"></bm-datepicker-lite>
+<bm-datepicker-lite pattern="mm/dd/yy"></bm-datepicker-lite>
 ```
-The default format is `YYYY-MM-DD` and do not need the pattern to be written out.
-The available patterns are:
-|  Pattern   |
-|------------|
-| YYYY-MM-DD |
-| YY-MM-DD   | 
-| MM-DD-YYYY |
-| MM-DD-YY   | 
-| DD-MM-YYYY |
-| DD-MM-YY   | 
-| YYYY/MM/DD |
-| YY/MM/DD   | 
-| MM/DD/YYYY |
-| MM/DD/YY   | 
-| DD/MM/YYYY |
-| DD/MM/YY   | 
-| DD.MM.YYYY |
-| DD.MM.YY   | 
+
+The default format is `yyyy-mm-dd` and do not need the pattern to be written out.
+
+The available patterns are... Have it your way! yyyy.mm-dd, dd/yyyy mm, mm/dd-yy - everything goes!
+The only restrictions is that the dividers can only be space ( ), period (.), forward slash (/) or dash (-).
+Days and months must two letters (mm) and (dd).
+Year can be either two letters (yy) or four letters (yyyy).
 
 
 ## Why can't I manually change the date in the input field?
-This is a lite-version and is intend to be easy to use and therefore the ability to do changes in input field is disabled. 
-Since version 1.1.0, the way to use Bookmaker Lite is:
+This is a lite-version and is intend to be easy to use and therefore the ability to do change values inside the input field is disabled. 
+The way to use Bookmaker Lite, version 2.x.x is:
 1. Select a date in the calendar. 
 2. The selected date will be formatted according to a pattern of choice. 
-3. The formated date will be presented in the input field and used via selected `formControlNameInput`.
+3. The formated date will be presented in the input field and used via selected `formControlNameInput` or use the date value from the callback `calendarOutput`.
 
-## How do I get back the response from Bookmaker?
-You can use `calendarOutput` to hook up to a response function. The response value is a raw formated date. 
+## How can do I get a callback response from Bookmaker?
+You can use `calendarOutput` to hook up to a response function. The response value is the same as selected pattern. Default pattern is `yyyy-mm-dd`.
+Make a function in the same component as the Bookmaker to fetch the event value from the `calendarOutput`.
 ```html
 <bm-datepicker-lite (calendarOutput)="calendarToOutput($event)"></bm-datepicker-lite>
 ```
@@ -71,7 +83,7 @@ Use the `label` option to change the text.
 ## What about the placeholder, can I change that too?
 Use the `placeholder` option to change the text. 
 ```html
-<bm-datepicker-lite placeholder="YYYY-MM-DD"></bm-datepicker-lite>
+<bm-datepicker-lite placeholder="Pick a date"></bm-datepicker-lite>
 ```
 
 ## How I change the name of the Weekdays?
@@ -121,16 +133,26 @@ In the HTML:
 In the component: 
 ```javascript
  styles = `
-p, input, label{
+p{
     font-family:"Poppins", Verdana, sans-serif;
     color: #000;
     margin:0;
-    padding:0
-}
+    padding:0;
+} 
+input{
+    font-family:"Poppins", Verdana, sans-serif;
+    color: #000;
+    margin:0;
+    padding:0;
+} 
 label{
+    font-family:"Poppins", Verdana, sans-serif;
+    color: #000;
+    margin:0;
+    padding:0;
     font-size: .9rem;
     font-weight: 500;
-    margin-left:15px
+    margin-left:15px;
 }
 .bm-date-input{
     display:flex;
@@ -145,6 +167,10 @@ label{
     display:flex;
     flex-direction:row; 
     align-items: center;
+}
+.bm-date-input-wrapper input[readonly] { 
+    cursor: default !important;
+    background:  rgb(245,245,245);
 }
 .bm-toggle-button{
     position:absolute; 
@@ -190,19 +216,33 @@ label{
     align-items:center;
     flex-direction:row;
 }
-.bm-td, .bm-td-empty, .bm-td-empty-month{
+.bm-td{
     display:flex; 
     flex:1;
     justify-content:center; 
     align-items: center; 
 }
-.bm-td-inner,
+.bm-td-empty{
+    display:flex; 
+    flex:1;
+    justify-content:center; 
+    align-items: center; 
+}
+.bm-td-empty-month{
+    display:flex; 
+    flex:1;
+    justify-content:center; 
+    align-items: center; 
+}
 .bm-td-empty .bm-td-inner-empty{
     height:30px;
     width:30px;
     margin:2px;
 }
 .bm-td-inner{
+    height:30px;
+    width:30px;
+    margin:2px;
     display:flex; 
     justify-content:center; 
     align-items: center; 
@@ -220,7 +260,8 @@ label{
     cursor:pointer;
     border: 1px solid rgb(0, 153, 235)
 }
-.bm-td-inner:hover p, .bm-td-selected-day p{color:#fff}
+.bm-td-inner:hover p{color:#fff}
+.bm-td-selected-day p{color:#fff}
 .bm-th p{
     font-size: .9rem;
     font-weight: 500;
@@ -282,10 +323,11 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
-- 1.1.1: Adjust text to Readme 
-- 1.1.0: Add date patterns. Lock input field. Adjust CSS. 
-- 1.0.4: Fix year format bug. Adjust text to Readme
-- 1.0.3: Adjust text to Readme
-- 1.0.2: Adjust text to Readme
-- 1.0.1: Adjust text to Readme
-- 1.0.0: Initial setup
+- 2.0.8: Refactor and bug fix
+- 2.0.7: Bug fix for stylesheets
+- 2.0.6: Remove errors
+- 2.0.5: Refactor validations
+- 2.0.4: Adjust text to Readme
+- 2.0.3: Refactor patterns formating
+- 2.0.2: Adjust date patterns to lowercase
+- 2.0.0: Upload correct npm package files
