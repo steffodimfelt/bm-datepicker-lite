@@ -1,9 +1,9 @@
 {
   "name": "bm-datepicker-lite",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "author": {
-    "name": "Steffo Dimfelt",
-    "email": "steffo.dimfelt@gmail.com"
+  "name": "Steffo Dimfelt",
+  "email": "steffo.dimfelt@gmail.com"
   },
   "license": "MIT",
   "peerDependencies": {
@@ -19,25 +19,5 @@
     "picker",
     "calendar",
     "dates"
-  ],
-  "module": "fesm2015/bm-datepicker-lite.mjs",
-  "es2020": "fesm2020/bm-datepicker-lite.mjs",
-  "esm2020": "esm2020/bm-datepicker-lite.mjs",
-  "fesm2020": "fesm2020/bm-datepicker-lite.mjs",
-  "fesm2015": "fesm2015/bm-datepicker-lite.mjs",
-  "typings": "index.d.ts",
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "types": "./index.d.ts",
-      "esm2020": "./esm2020/bm-datepicker-lite.mjs",
-      "es2020": "./fesm2020/bm-datepicker-lite.mjs",
-      "es2015": "./fesm2015/bm-datepicker-lite.mjs",
-      "node": "./fesm2015/bm-datepicker-lite.mjs",
-      "default": "./fesm2020/bm-datepicker-lite.mjs"
-    }
-  },
-  "sideEffects": false
+  ]
 }

@@ -323,6 +323,7 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
+- 2.0.9: Year change bug fix
 - 2.0.8: Refactor and bug fix
 - 2.0.7: Bug fix for stylesheets
 - 2.0.6: Remove errors
