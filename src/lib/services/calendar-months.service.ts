@@ -37,13 +37,14 @@ export class CalendarMonthsService {
     }
     return emptyDayArray;
   }
-  get selectedMonthDaysArray() {
+  selectedMonthDaysArray(isSunday: boolean) {
     let selectedMonthArray = new Date(
       this._selectedYear,
       this._selectedMonth,
       1
     );
     let datesArray: any = this.emptyDaysAtBeginning;
+    isSunday && datesArray.push(null);
     while (selectedMonthArray.getMonth() === this._selectedMonth) {
       datesArray.push(new Date(selectedMonthArray));
       selectedMonthArray.setDate(selectedMonthArray.getDate() + 1);

@@ -34,22 +34,11 @@
 
   <div [@toggleTable]="showDatePicker ? 'open' : 'close'" class="bm-table">
     <div class="bm-tr">
-      <div
-        *ngIf="
-          calendarYearsService.selectedYear ===
-            calendarYearsService.currentYear &&
-            calendarMonthsService.selectedMonth ===
-              calendarMonthsService.currentMonth;
-          else previousYearButton
-        "
-        class="bm-td-empty-month"></div>
-      <ng-template #previousYearButton>
-        <div class="bm-td">
-          <div class="bm-td-inner" (click)="selectPrevious()">
-            <span class="bm-arrow bm-arrow-left"></span>
-          </div>
+      <div class="bm-td">
+        <div class="bm-td-inner" (click)="selectPrevious()">
+          <span class="bm-arrow bm-arrow-left"></span>
         </div>
-      </ng-template>
+      </div>
       <div class="bm-year-month-title">
         <p class="bm-date-p bm-month-title">
           {{ calendarMonthsService.selectedMonthName }}
@@ -65,14 +54,12 @@
       </div>
     </div>
     <div class="bm-tr bm-daylabels-wrapper">
-      <div
-        *ngFor="let weekdayLabel of calendarDaysService.dayLabels"
-        class="bm-th">
+      <div *ngFor="let weekdayLabel of weekdayLabels" class="bm-th">
         <p class="bm-date-p">{{ weekdayLabel }}</p>
       </div>
     </div>
     <div
-      *ngFor="let weekRow of calendarMonthsService.selectedMonthDaysArray"
+      *ngFor="let weekRow of calendarMonthsService.selectedMonthDaysArray(isSunday)"
       class="bm-tr">
       <div
         *ngFor="let dayDate of weekRow; let dayIndex = index"
@@ -95,19 +82,11 @@
                 calendarDaysService.currentDay &&
               calendarDaysService.selectedDay !==
                 calendarDaysService.returnWeekdayDate(dayDate),
-            'bm-td-before-day':
-              calendarYearsService.selectedYear ===
-                calendarYearsService.currentYear &&
-              calendarMonthsService.selectedMonth ===
-                calendarMonthsService.currentMonth &&
-              dayDate &&
-              calendarDaysService.returnWeekdayDate(dayDate) <
-                calendarDaysService.currentDay,
             'bm-td-selected-day': dayDate && selectedDayDate(dayDate)
           }">
           <p
             class="bm-date-p"
-            [class.bm-weekend]="dayDate && (dayIndex === 5 || dayIndex === 6)">
+            [class.bm-weekend]="dayDate && ((!isSunday && (dayIndex === 5 || dayIndex === 6)) || (isSunday && (dayIndex === 0 || dayIndex === 6)))">
             {{ dayDate && calendarDaysService.returnWeekdayDate(dayDate) }}
           </p>
         </div>

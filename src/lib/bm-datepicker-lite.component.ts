@@ -53,16 +53,18 @@ export class BmDatepickerLiteComponent implements OnInit {
   @Input() styleSheet: any = null;
   @Input() weekdays: any = null;
   @Input() months: any = null;
-  @Input() formGroupInput?: FormGroup;
+  @Input() formGroupInput!: FormGroup;
   @Input() formControlNameInput: string = 'defaultFormControlName';
   @Input() placeholder: string = 'Pick a date';
   @Input() pattern: string = 'yyyy-mm-dd';
+  @Input() isSunday: boolean = false;
   @Output() calendarOutput: EventEmitter<any> = new EventEmitter();
 
   date = new Date();
   inputData = { year: '0', month: '0', day: '0' };
   showDatePicker = false;
   styleElement: any = null;
+  weekdayLabels: any;
 
   constructor(
     private elementRef: ElementRef,
@@ -78,7 +80,10 @@ export class BmDatepickerLiteComponent implements OnInit {
     this.calendarDaysService.selectedDay = null;
     !!this.weekdays && (this.calendarDaysService.dayLabels = this.weekdays);
     !!this.months && (this.calendarMonthsService.monthLabels = this.months);
-
+    this.weekdayLabels = this.calendarDaysService.dayLabels;
+    if (this.isSunday) {
+      this.weekdayLabels.unshift(this.weekdayLabels.pop());
+    }
     this.createStyle();
 
     const divider: any = this.pattern.match('[ -./]');
@@ -97,7 +102,7 @@ export class BmDatepickerLiteComponent implements OnInit {
     }
     if (this.styleSheet) {
       this.styleSheet = this.styleSheet
-        .replace('}', `} #${this.formControlNameInput} `)
+        .replace('};', `} #${this.formControlNameInput} `)
         .replace(',', `, #${this.formControlNameInput} `);
       this.styleSheet = `${stylesDefault} #${this.formControlNameInput}  ${this.styleSheet}`;
     } else {
@@ -125,7 +130,6 @@ export class BmDatepickerLiteComponent implements OnInit {
     this.setFirstAndLastDay();
   };
   selectDay = (dayValue: any) => {
-
     this.inputData = {
       year: this.calendarYearsService.selectedYear.toString(),
       month: this.calendarMonthsService.returnMonthDate(dayValue).toString(),
@@ -153,7 +157,8 @@ export class BmDatepickerLiteComponent implements OnInit {
       (selectParsedMonth = `0${selectParsedMonth}`);
     if (parsedDay.length < 2) parsedDay = `0${parsedDay}`;
     if (
-      this.calendarYearsService.selectedYear.toString() === this.inputData.year &&
+      this.calendarYearsService.selectedYear.toString() ===
+        this.inputData.year &&
       selectParsedMonth === this.inputData.month &&
       parsedDay === this.inputData.day
     ) {

@@ -1,11 +1,15 @@
 {
   "name": "bm-datepicker-lite",
-  "version": "2.0.9",
+  "version": "2.1.2",
   "author": {
   "name": "Steffo Dimfelt",
   "email": "steffo.dimfelt@gmail.com"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steffodimfelt/bm-datepicker-lite.git"
+  },
   "peerDependencies": {
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0"

@@ -8,13 +8,6 @@
       "files": [
         "*.ts"
       ],
-      "parserOptions": {
-        "project": [
-          "projects/bm-datepicker-lite/tsconfig.lib.json",
-          "projects/bm-datepicker-lite/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
-      },
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -28,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "bm",
+            "prefix": "lib",
             "style": "kebab-case"
           }
         ]

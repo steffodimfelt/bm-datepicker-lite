@@ -94,12 +94,6 @@ label{
     justify-content:center; 
     align-items: center; 
 }
-.bm-td-empty-month{
-    display:flex; 
-    flex:1;
-    justify-content:center; 
-    align-items: center; 
-}
 .bm-td-empty .bm-td-inner-empty{
     height:30px;
     width:30px;
@@ -126,8 +120,8 @@ label{
     cursor:pointer;
     border: 1px solid rgb(0, 153, 235)
 }
-.bm-td-inner:hover p{color:#fff}
-.bm-td-selected-day p{color:#fff}
+.bm-td-inner:hover p{color:#fff !important}
+.bm-td-selected-day p{color:#fff !important}
 .bm-th p{
     font-size: .9rem;
     font-weight: 500;
@@ -151,10 +145,6 @@ label{
     margin-top: -8px
 }
 .bm-td-current-day{border: 1px solid rgb(0, 202, 101)}
-.bm-td-before-day{ 
-    pointer-events:none;
-    background: repeating-linear-gradient(-55deg,rgb(222, 222, 222), rgb(222, 222, 222) 2px,rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px);
-    border: 1px solid rgb(222, 222, 222)}
 .bm-arrow {
     border: solid #000;
     border-width: 0 3px 3px 0;
@@ -167,5 +157,5 @@ label{
 }
 .bm-arrow-right {transform: rotate(-45deg);}
 .bm-arrow-left {transform: rotate(135deg);}
-.bm-weekend {color: #ff0000}
+.bm-weekend {color: #ff0000 !important}
 `;
