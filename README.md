@@ -360,14 +360,5 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
+- 2.1.3: Update peerDependencies
 - 2.1.2: Stylesheet bug fix & add option isSunday
-- 2.1.1: Adjust divider handling
-- 2.0.9: Year change bug fix
-- 2.0.8: Refactor and bug fix
-- 2.0.7: Bug fix for stylesheets
-- 2.0.6: Remove errors
-- 2.0.5: Refactor validations
-- 2.0.4: Adjust text to Readme
-- 2.0.3: Refactor patterns formating
-- 2.0.2: Adjust date patterns to lowercase
-- 2.0.0: Upload correct npm package files
