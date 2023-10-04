@@ -2,7 +2,7 @@
 A sweet, stylish and fast datepicker for Angular. Developed for developers who want full control over the stylesheet and patterns. Can be used within a formgroup or as a standalone input with a standalone callback output. 
 
 ## Notice
-This application requires Angular version 15.0.0 or newer to work correctly.
+This application requires Angular version 15.1.0 or newer to work correctly.
 
 <img src="https://github.com/steffodimfelt/bm-datepicker-lite/blob/main/bookmaker.png"  width="350px" alt="Bookmaker Datepicker Lite">
 
@@ -360,5 +360,6 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
-- 2.1.3: Update peerDependencies
+- 2.1.4: Update peerDependencies
+- 2.1.3: (Deprected)
 - 2.1.2: Stylesheet bug fix & add option isSunday
