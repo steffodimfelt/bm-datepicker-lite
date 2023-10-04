@@ -360,6 +360,6 @@ Steffo Dimfelt
 [steffo.dimfelt@gmail.com](mailto:steffo.dimfelt@gmail.com)
 
 # Version list
-- 2.1.4: Update peerDependencies
+- 2.1.6: Update peerDependencies
 - 2.1.3: (Deprected)
 - 2.1.2: Stylesheet bug fix & add option isSunday
