@@ -1,17 +1,22 @@
 export default `
-p{
+p.bm-paragraph{
     font-family:"Poppins", Verdana, sans-serif;
     color: #000;
     margin:0;
     padding:0;
 } 
-input{
+input.bm-date-input{
     font-family:"Poppins", Verdana, sans-serif;
     color: #000;
     margin:0;
-    padding:0;
+    display:flex;
+    flex:1;
+    height:40px;
+    border-radius: 9999px;
+    padding: 3px 0 3px 20px; 
+    border: 1px solid rgb(195, 195, 195)
 } 
-label{
+label.bm-label{
     font-family:"Poppins", Verdana, sans-serif;
     color: #000;
     margin:0;
@@ -19,13 +24,6 @@ label{
     font-size: .9rem;
     font-weight: 500;
     margin-left:15px;
-}
-.bm-date-input{
-    display:flex;
-    flex:1;height:40px;
-    border-radius: 9999px;
-    padding: 3px 0 3px 20px; 
-    border: 1px solid rgb(195, 195, 195)
 }
 .bm-date-input-wrapper{
     position:relative; 

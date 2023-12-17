@@ -3,8 +3,8 @@ import {
   state,
   style,
   transition,
-  animate
-} from '@angular/animations';
+  animate,
+} from "@angular/animations";
 import {
   Component,
   ElementRef,
@@ -12,56 +12,56 @@ import {
   Input,
   OnInit,
   Output,
-  ViewChild
-} from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+  ViewChild,
+} from "@angular/core";
+import { FormGroup, Validators } from "@angular/forms";
 
-import { CalendarDaysService } from './services/calendar-days.service';
-import { CalendarMonthsService } from './services/calendar-months.service';
-import { CalendarYearsService } from './services/calendar-years.service';
-import stylesDefault from './styles-default';
+import { CalendarDaysService } from "./services/calendar-days.service";
+import { CalendarMonthsService } from "./services/calendar-months.service";
+import { CalendarYearsService } from "./services/calendar-years.service";
+import stylesDefault from "./styles-default";
 
 @Component({
-  selector: 'bm-datepicker-lite',
-  templateUrl: './bm-datepicker-lite.component.html',
-  styleUrls: ['./styles.scss'],
+  selector: "bm-datepicker-lite",
+  templateUrl: "./bm-datepicker-lite.component.html",
+  styleUrls: ["./styles.scss"],
   animations: [
-    trigger('toggleTable', [
+    trigger("toggleTable", [
       state(
-        'open',
+        "open",
         style({
           opacity: 1,
-          marginTop: '10px'
+          marginTop: "10px",
         })
       ),
       state(
-        'close',
+        "close",
         style({
           height: 0,
           padding: 0,
           opacity: 0,
-          marginTop: 0
+          marginTop: 0,
         })
       ),
-      transition('open <=> close', [animate('.2s ease-out')])
-    ])
-  ]
+      transition("open <=> close", [animate(".2s ease-out")]),
+    ]),
+  ],
 })
 export class BmDatepickerLiteComponent implements OnInit {
-  @ViewChild('bmDatePicker') bmDatePicker!: ElementRef;
+  @ViewChild("bmDatePicker") bmDatePicker!: ElementRef;
   @Input() label?: string | null = null;
   @Input() styleSheet: any = null;
   @Input() weekdays: any = null;
   @Input() months: any = null;
   @Input() formGroupInput!: FormGroup;
-  @Input() formControlNameInput: string = 'defaultFormControlName';
-  @Input() placeholder: string = 'Pick a date';
-  @Input() pattern: string = 'yyyy-mm-dd';
+  @Input() formControlNameInput: string = "defaultFormControlName";
+  @Input() placeholder: string = "Pick a date";
+  @Input() pattern: string = "yyyy-mm-dd";
   @Input() isSunday: boolean = false;
   @Output() calendarOutput: EventEmitter<any> = new EventEmitter();
 
   date = new Date();
-  inputData = { year: '0', month: '0', day: '0' };
+  inputData = { year: "0", month: "0", day: "0" };
   showDatePicker = false;
   styleElement: any = null;
   weekdayLabels: any;
@@ -86,7 +86,7 @@ export class BmDatepickerLiteComponent implements OnInit {
     }
     this.createStyle();
 
-    const divider: any = this.pattern.match('[ -./]');
+    const divider: any = this.pattern.match("[ -./]");
     const patternArray: any = this.pattern.split(divider[0]);
     const validatePattern = `[0-9]{${patternArray[0].length}}${divider}[0-9]{${patternArray[1].length}}${divider}[0-9]{${patternArray[2].length}}`;
     this.formGroupInput
@@ -95,21 +95,10 @@ export class BmDatepickerLiteComponent implements OnInit {
   }
 
   createStyle(): void {
-    if (this.styleElement) {
-      this.styleElement.removeChild(this.styleElement.firstChild);
-    } else {
-      this.styleElement = document.createElement('style');
-    }
-    if (this.styleSheet) {
-      this.styleSheet = this.styleSheet
-        .replace('};', `} #${this.formControlNameInput} `)
-        .replace(',', `, #${this.formControlNameInput} `);
-      this.styleSheet = `${stylesDefault} #${this.formControlNameInput}  ${this.styleSheet}`;
-    } else {
-      this.styleSheet = stylesDefault;
-    }
-    this.styleElement.appendChild(document.createTextNode(this.styleSheet));
-    this.elementRef.nativeElement.appendChild(this.styleElement);
+    let styleElement = document.createElement("style");
+    const stylesheetFormated = `${stylesDefault} ${this.styleSheet}`;
+    styleElement.appendChild(document.createTextNode(stylesheetFormated));
+    this.elementRef.nativeElement.appendChild(styleElement);
   }
 
   selectNext = () => {
@@ -133,7 +122,7 @@ export class BmDatepickerLiteComponent implements OnInit {
     this.inputData = {
       year: this.calendarYearsService.selectedYear.toString(),
       month: this.calendarMonthsService.returnMonthDate(dayValue).toString(),
-      day: this.calendarDaysService.returnWeekdayDate(dayValue).toString()
+      day: this.calendarDaysService.returnWeekdayDate(dayValue).toString(),
     };
 
     this.selectedDayDate(dayValue);
@@ -177,19 +166,19 @@ export class BmDatepickerLiteComponent implements OnInit {
       (this.inputData.day = `0${this.inputData.day}`);
     let formatedYear = this.inputData.year.toString();
 
-    const getFullYear: any = this.pattern.match('yyyy');
+    const getFullYear: any = this.pattern.match("yyyy");
     if (getFullYear === null) {
       formatedYear =
         formatedYear.slice(-1, 1) + formatedYear.slice(2, formatedYear.length);
     }
 
-    const divider: any = this.pattern.match('[ -./]');
+    const divider: any = this.pattern.match("[ -./]");
     let dateArray: any = [];
     const patternArray: any = this.pattern.split(divider[0]);
     patternArray.forEach((format: string) => {
-      if (format === 'dd') {
+      if (format === "dd") {
         dateArray.push(this.inputData.day);
-      } else if (format === 'mm') {
+      } else if (format === "mm") {
         dateArray.push(this.inputData.month);
       } else {
         dateArray.push(formatedYear);
